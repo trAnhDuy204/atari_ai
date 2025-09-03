@@ -1,0 +1,18 @@
+# Gymnasium và shimmy cho Atari / Env custom
+gymnasium==0.29.1
+shimmy>=1.3.0
+
+# Stable-Baselines3 (Dùng PPO, DQN, A2C...)
+stable-baselines3==2.2.1
+
+# Deep Learning backend
+torch>=2.0.0
+
+# Xử lý game Frogger
+pygame==2.5.2
+
+# Thư viện cơ bản
+numpy>=1.23.5
+
+# TensorBoard để log training
+tensorboard
