@@ -26,7 +26,7 @@ Thuật toán sử dụng: **PPO**, **A2C**, **DQN** từ thư viện `stable-ba
 
 ## 🎮 Huấn luyện AI
 
-### 1️⃣ Huấn luyện cơ bản (logging + checkpoint + TensorBoard)
+### 1️. Huấn luyện cơ bản (logging + checkpoint + TensorBoard)
 
 - PPO:
   ```bash
@@ -48,7 +48,7 @@ Thuật toán sử dụng: **PPO**, **A2C**, **DQN** từ thư viện `stable-ba
 
 ---
 
-### 2️⃣ Huấn luyện cải tiến (frame stacking + entropy + logging)
+### 2️. Huấn luyện cải tiến (frame stacking + entropy + logging)
 
 - PPO Improved:
   ```bash
