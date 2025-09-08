@@ -56,7 +56,7 @@ Thuật toán sử dụng: **PPO**, **A2C**, **DQN** từ thư viện `stable-ba
   ```
   → Model cuối: `frogger_ppo_model_final.zip`  
   → Best model: `logs_framestack/best_model/best_model.zip`  
-  → TensorBoard: `ppo_frogger_tensorboard/`
+  → TensorBoard: `./ppo_frogger_tensorboard_framestack/`
 
 - A2C Improved:
   ```bash
