@@ -8,7 +8,7 @@ Thuật toán sử dụng: **PPO**, **A2C**, **DQN** từ thư viện `stable-ba
 ## 🚀 Cài đặt môi trường
 
 1. Clone repo hoặc copy mã nguồn về máy.  
-2. Tạo virtual environment (khuyến khích):
+2. Tạo virtual environment:
 
    ```bash
    python -m venv venv
