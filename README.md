@@ -81,12 +81,12 @@ Thuật toán sử dụng: **PPO**, **A2C**, **DQN** từ thư viện `stable-ba
 Mở TensorBoard để so sánh tất cả log:
 
 ```bash
-tensorboard --logdir_spec \\
-ppo=./ppo_frogger_tensorboard, \\
-ppo_imp=./ppo_frogger_tensorboard_framestack, \\
-a2c=./a2c_frogger_tensorboard, \\
-a2c_imp=./a2c_frogger_tensorboard_improved, \\
-dqn=./dqn_frogger_tensorboard, \\
+tensorboard --logdir_spec \
+ppo=./ppo_frogger_tensorboard, \
+ppo_imp=./ppo_frogger_tensorboard_framestack, \
+a2c=./a2c_frogger_tensorboard, \
+a2c_imp=./a2c_frogger_tensorboard_improved, \
+dqn=./dqn_frogger_tensorboard, \
 dqn_imp=./dqn_frogger_tensorboard_improved
 ```
 
