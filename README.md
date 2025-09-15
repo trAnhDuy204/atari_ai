@@ -26,7 +26,7 @@ Thuật toán sử dụng: **PPO**, **A2C**, **DQN** từ thư viện `stable-ba
 
 ## 🎮 Huấn luyện AI
 
-### 1️⃣ Huấn luyện cơ bản (logging + checkpoint + TensorBoard)
+### 1️. Huấn luyện cơ bản (logging + checkpoint + TensorBoard)
 
 - PPO:
   ```bash
@@ -48,7 +48,7 @@ Thuật toán sử dụng: **PPO**, **A2C**, **DQN** từ thư viện `stable-ba
 
 ---
 
-### 2️⃣ Huấn luyện cải tiến (frame stacking + entropy + logging)
+### 2️. Huấn luyện cải tiến (frame stacking + entropy + logging)
 
 - PPO Improved:
   ```bash
@@ -56,7 +56,7 @@ Thuật toán sử dụng: **PPO**, **A2C**, **DQN** từ thư viện `stable-ba
   ```
   → Model cuối: `frogger_ppo_model_final.zip`  
   → Best model: `logs_framestack/best_model/best_model.zip`  
-  → TensorBoard: `ppo_frogger_tensorboard/`
+  → TensorBoard: `ppo_frogger_tensorboard_framestack/`
 
 - A2C Improved:
   ```bash
@@ -81,13 +81,7 @@ Thuật toán sử dụng: **PPO**, **A2C**, **DQN** từ thư viện `stable-ba
 Mở TensorBoard để so sánh tất cả log:
 
 ```bash
-tensorboard --logdir_spec \\
-ppo=./ppo_frogger_tensorboard, \\
-ppo_imp=./ppo_frogger_tensorboard_framestack, \\
-a2c=./a2c_frogger_tensorboard, \\
-a2c_imp=./a2c_frogger_tensorboard_improved, \\
-dqn=./dqn_frogger_tensorboard, \\
-dqn_imp=./dqn_frogger_tensorboard_improved
+tensorboard --logdir_spec ppo:./ppo_frogger_tensorboard/,ppo_imp:./ppo_frogger_tensorboard_framestack/,a2c:./a2c_frogger_tensorboard/,a2c_imp:./a2c_frogger_tensorboard_improved/,dqn:./dqn_frogger_tensorboard/,dqn_imp:./dqn_frogger_tensorboard_improved/
 ```
 
 Mở trình duyệt tại: [http://localhost:6006](http://localhost:6006)

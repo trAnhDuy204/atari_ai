@@ -21,11 +21,15 @@ class FroggerEnv(gym.Env):
         self.render_mode = render_mode
         self.window = None
         self.clock = None
+        self.closed = False
 
         self.max_cars = 20  # Số xe tối đa để cố định chiều dài obs
         self.action_space = spaces.Discrete(4)
 
-        obs_high = np.array([SCREEN_WIDTH, SCREEN_HEIGHT] + [SCREEN_WIDTH, SCREEN_HEIGHT] * self.max_cars, dtype=np.float32)
+        obs_high = np.array(
+            [SCREEN_WIDTH, SCREEN_HEIGHT] + [SCREEN_WIDTH, SCREEN_HEIGHT] * self.max_cars,
+            dtype=np.float32
+        )
         self.observation_space = spaces.Box(low=0, high=obs_high, dtype=np.float32)
 
         self.frog_img = None
@@ -33,13 +37,15 @@ class FroggerEnv(gym.Env):
         self.level = 1
         self.score = 0
 
-        # Thêm giới hạn bước
-        self.max_steps = 500
+        # Giới hạn bước
+        self.max_steps = 2000
         self.current_step = 0
 
         self._init_game()
 
     def _init_game(self):
+        if self.closed: 
+            return
         self.frog_x = SCREEN_WIDTH // 2
         self.frog_y = SCREEN_HEIGHT - FROG_SIZE
         self.cars = []
@@ -55,6 +61,8 @@ class FroggerEnv(gym.Env):
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
+        if self.closed:  
+            return np.zeros(2 + self.max_cars * 2, dtype=np.float32), {}
         self.level = 1
         self.score = 0
         self.current_step = 0
@@ -72,6 +80,9 @@ class FroggerEnv(gym.Env):
         return np.array(obs, dtype=np.float32)
 
     def step(self, action):
+        if self.closed:  
+            return self._get_obs(), 0.0, True, False, {}
+
         old_y = self.frog_y
 
         # Di chuyển ếch
@@ -96,8 +107,8 @@ class FroggerEnv(gym.Env):
                 car[0] = -CAR_WIDTH
 
         # Reward shaping
-        reward = -0.01  # phạt nhỏ mỗi bước để tránh đứng yên
-        if self.frog_y < old_y:  # đi lên
+        reward = -0.01
+        if self.frog_y < old_y:
             reward += 0.1
 
         done = False
@@ -137,7 +148,7 @@ class FroggerEnv(gym.Env):
         return self._get_obs(), reward, done, False, {}
 
     def render(self):
-        if self.render_mode != "human":
+        if self.render_mode != "human" or self.closed:
             return
 
         if self.window is None:
@@ -149,6 +160,11 @@ class FroggerEnv(gym.Env):
             self.frog_img = pygame.transform.scale(self.frog_img, (FROG_SIZE, FROG_SIZE))
             self.car_img = pygame.image.load("./images.jpg").convert_alpha()
             self.car_img = pygame.transform.scale(self.car_img, (CAR_WIDTH, CAR_HEIGHT))
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.close()
+                return
 
         self.window.fill((0, 0, 0))
         self.window.blit(self.frog_img, (self.frog_x, self.frog_y))
@@ -169,3 +185,4 @@ class FroggerEnv(gym.Env):
         if self.window:
             pygame.quit()
             self.window = None
+        self.closed = True

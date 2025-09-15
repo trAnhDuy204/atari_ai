@@ -25,22 +25,22 @@ eval_callback = EvalCallback(
 model = DQN(
     "MlpPolicy",
     env,
-    learning_rate=5e-5,       # nhỏ hơn để ổn định
-    buffer_size=200000,       # buffer lớn hơn
-    learning_starts=5000,     # bắt đầu học muộn hơn
-    batch_size=64,            # batch to hơn
+    learning_rate=1e-4,
+    buffer_size=200000,
+    learning_starts=10000,
+    batch_size=64, 
     tau=1.0,
     gamma=0.99,
     train_freq=4,
-    target_update_interval=500,
-    exploration_fraction=0.2, # tăng exploration
+    target_update_interval=2000,
+    exploration_fraction=0.2,
     exploration_final_eps=0.05,
     verbose=1,
     tensorboard_log="./dqn_frogger_tensorboard_improved/"
 )
 
 # Huấn luyện
-model.learn(total_timesteps=500_000, callback=eval_callback)
+model.learn(total_timesteps=1_000_000, callback=eval_callback)
 
 # Lưu mô hình cải tiến
 model.save("frogger_dqn_model_improved")

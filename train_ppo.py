@@ -33,13 +33,13 @@ model = PPO(
     verbose=1,
     tensorboard_log="./ppo_frogger_tensorboard/",
     learning_rate=3e-4,      # tốc độ học
-    n_steps=2048,            # số bước rollout trước khi update
+    n_steps=1024,            # số bước rollout trước khi update
     batch_size=64,           # minibatch
     ent_coef=0.01,           # khuyến khích exploration
     gae_lambda=0.95,
     gamma=0.99,
     clip_range=0.2,
-    n_epochs=10
+    n_epochs=5
 )
 
 

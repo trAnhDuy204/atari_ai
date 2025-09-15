@@ -34,13 +34,13 @@ model = PPO(
     verbose=1,
     tensorboard_log="./ppo_frogger_tensorboard_framestack/",
     learning_rate=3e-4,
-    n_steps=2048,
+    n_steps=1024,
     batch_size=64,
-    ent_coef=0.05,    # tăng entropy để agent khám phá nhiều hơn
+    ent_coef=0.02,    # tăng entropy để agent khám phá nhiều hơn
     gae_lambda=0.95,
     gamma=0.99,
     clip_range=0.2,
-    n_epochs=10
+    n_epochs=5
 )
 
 # Huấn luyện
