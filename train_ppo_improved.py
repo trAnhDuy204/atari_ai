@@ -10,7 +10,7 @@ train_env = VecFrameStack(train_env, n_stack=4)  # Frame stacking: ghép 4 trạ
 # Bọc train_env bằng Video Recorder
 train_env = VecVideoRecorder(
     train_env,
-    "videos/",  # thư mục lưu video
+    "videos_ppo/",  # thư mục lưu video
     record_video_trigger=lambda step: step % 100000 == 0,  # quay mỗi 100k steps
     video_length=2000,  # số bước trong mỗi video
     name_prefix="ppo_frogger"
