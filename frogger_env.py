@@ -148,8 +148,8 @@ class FroggerEnv(gym.Env):
         return self._get_obs(), reward, done, False, {}
 
     def render(self):
-        if self.render_mode != "human" or self.closed:
-            return
+        if self.closed:
+            return None
 
         if self.window is None:
             pygame.init()
@@ -180,6 +180,14 @@ class FroggerEnv(gym.Env):
 
         pygame.display.flip()
         self.clock.tick(self.metadata["render_fps"])
+
+        # Nếu ở chế độ quay video thì trả về RGB array
+        if self.render_mode == "rgb_array":
+            return np.transpose(
+                np.array(pygame.surfarray.pixels3d(self.window)), (1, 0, 2)
+            )
+        else:
+            return None
 
     def close(self):
         if self.window:

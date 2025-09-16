@@ -1,14 +1,26 @@
 from stable_baselines3 import PPO
-from stable_baselines3.common.vec_env import DummyVecEnv, VecFrameStack
+from stable_baselines3.common.vec_env import DummyVecEnv, VecFrameStack, VecVideoRecorder
 from stable_baselines3.common.callbacks import EvalCallback, CheckpointCallback
 from frogger_env import FroggerEnv
 
 # Tạo môi trường train & eval
-train_env = DummyVecEnv([lambda: FroggerEnv()])
+train_env = DummyVecEnv([lambda: FroggerEnv(render_mode="rgb_array")])
 train_env = VecFrameStack(train_env, n_stack=4)  # Frame stacking: ghép 4 trạng thái liên tiếp
 
-eval_env = DummyVecEnv([lambda: FroggerEnv()])
+# Bọc train_env bằng Video Recorder
+train_env = VecVideoRecorder(
+    train_env,
+    "videos/",  # thư mục lưu video
+    record_video_trigger=lambda step: step % 100000 == 0,  # quay mỗi 100k steps
+    video_length=2000,  # số bước trong mỗi video
+    name_prefix="ppo_frogger"
+)
+
+
+eval_env = DummyVecEnv([lambda: FroggerEnv(render_mode="rgb_array")])
 eval_env = VecFrameStack(eval_env, n_stack=4)
+
+
 
 # Callback để lưu best model
 eval_callback = EvalCallback(
